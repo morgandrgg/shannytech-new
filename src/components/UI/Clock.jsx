@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useCallback} from 'react'
 import '../../styles/clock.css'
 
 const Clock = () => {
@@ -8,34 +8,37 @@ const Clock = () => {
     const [minutes, setMinutes] = useState()
     const [seconds, setSeconds] = useState()
 
-    let interval;
-    const countDown=()=>{
-        const destination = new Date('July 30, 2023').getTime()
-        interval = setInterval(()=>{
-            const now = new Date().getTime()
-            const different = destination - now
-            const days = Math.floor(different/(1000*60*60*24))
+    const countDown = useCallback(() => {
+    const destination = new Date('Sep 30, 2023').getTime();
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const difference = destination - now;
 
-            const hours = Math.floor(different % (1000*60*60*24)/(1000*60*60))
+      if (difference <= 0) {
+        clearInterval(interval);
+        setDays(0);
+        setHours(0);
+        setMinutes(0);
+        setSeconds(0);
+      } else {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-            const minutes = Math.floor(different % (1000*60*60)/(1000*60))
+        setDays(days);
+        setHours(hours);
+        setMinutes(minutes);
+        setSeconds(seconds);
+      }
+    }, 1000);
+    return interval; // Return the interval ID
+  }, []);
 
-            const seconds = Math.floor(different % (1000*60)/(1000))
-
-            if(destination < 0) clearInterval(interval.current)
-            else{
-                setDays(days)
-                setHours(hours)
-                setMinutes(minutes)
-                setSeconds(seconds)
-            }
-
-        })
-    }
-
-    useEffect(()=>{
-        countDown()
-    })
+    useEffect(() => {
+        const intervalId = countDown();
+        return () => clearInterval(intervalId);
+    }, [countDown]);
 
   return <div className="clock_wrapper d-flex align-items-center gap-3">
     <div className="clock_data d-flex align-items-center gap-3">
