@@ -1,0 +1,92 @@
+.product_item {
+    cursor: pointer;
+}
+
+.wish {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 9;
+}
+
+.wish span {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.wish .remix-heart-filled i{
+    color: var(--primary-color);
+}
+
+
+.product_img {
+    width: 100%;
+    height: 200px;
+    /* Adjust the height as needed */
+    overflow: hidden;
+}
+
+.product_img img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.product-info h3 a {
+    font-style: 1.1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.product-info a:hover {
+    color: inherit;
+}
+
+.product-info span {
+    font-style: 0.9rem;
+}
+
+.product_card-bottom .price {
+    color: var(--primary-color);
+    font-style: 1.3rem;
+    font-weight: 500;
+}
+
+.product_card-bottom span i {
+    font-style: 1.2rem;
+    padding: 5px;
+    background: var(--primary-color);
+    color: #f5f5f5;
+    border-radius: 50px;
+}
+
+@media only screen and (max-width:992px) {
+    .product-info h3 a {
+        font-size: 1.1rem;
+    }
+}
+
+@media only screen and (max-width:768px) {
+    .product-info h3 a {
+        font-size: 1.1rem;
+    }
+
+    .product_card-bottom span i {
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (max-width:576px) {
+    .product-info h3 a {
+        font-size: 0.8rem;
+    }
+
+    .product_card-bottom span i {
+        font-size: 0.9rem;
+    }
+
+    .product-info span {
+        font-size: 0.6rem;
+    }
+}
